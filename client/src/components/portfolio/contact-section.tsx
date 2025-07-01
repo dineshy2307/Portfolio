@@ -1,33 +1,23 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { apiRequest } from "@/lib/queryClient";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { FaLinkedin } from "react-icons/fa";
 import { portfolioData } from "@/lib/portfolio-data";
-
-const contactFormSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  subject: z.string().min(5, "Subject must be at least 5 characters"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-});
-
-type ContactFormData = z.infer<typeof contactFormSchema>;
+import { contactFormSchema, type ContactFormData } from "@shared/schema";
 
 export default function ContactSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
@@ -39,28 +29,36 @@ export default function ContactSection() {
     },
   });
 
-  const mutation = useMutation({
-    mutationFn: async (data: ContactFormData) => {
-      return await apiRequest("POST", "/api/contact", data);
-    },
-    onSuccess: () => {
+  const onSubmit = async (data: ContactFormData) => {
+    setIsSubmitting(true);
+    
+    try {
+      // Create mailto link to send email directly
+      const subject = encodeURIComponent(`Portfolio Contact: ${data.subject}`);
+      const body = encodeURIComponent(
+        `Name: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`
+      );
+      const mailtoUrl = `mailto:dineshy2307@gmail.com?subject=${subject}&body=${body}`;
+      
+      // Open default email client
+      window.open(mailtoUrl, '_blank');
+      
       toast({
-        title: "Message sent!",
-        description: "Thank you for your message. I'll get back to you soon!",
+        title: "Opening email client",
+        description: "Your default email client will open to send the message.",
       });
+      
       form.reset();
-    },
-    onError: (error: any) => {
+    } catch (error) {
+      console.error("Error:", error);
       toast({
         title: "Error",
-        description: error.message || "Failed to send message. Please try again.",
+        description: "Please email me directly at dineshy2307@gmail.com",
         variant: "destructive",
       });
-    },
-  });
-
-  const onSubmit = (data: ContactFormData) => {
-    mutation.mutate(data);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -225,11 +223,11 @@ export default function ContactSection() {
 
                 <Button 
                   type="submit" 
-                  disabled={mutation.isPending}
+                  disabled={isSubmitting}
                   className="w-full bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-purple)] text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
                 >
                   <Send className="mr-2 h-4 w-4" />
-                  {mutation.isPending ? "Sending..." : "Send Message"}
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             </Form>

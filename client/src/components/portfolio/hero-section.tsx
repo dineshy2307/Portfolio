@@ -12,8 +12,8 @@ export default function HeroSection() {
   };
 
   const downloadResume = () => {
-    // This would trigger the resume download
-    window.open("/api/resume", "_blank");
+    // Direct download of the resume PDF
+    window.open("/assets/Dinesh_Reddy_Resume_1751336453859.pdf", "_blank");
   };
 
   return (

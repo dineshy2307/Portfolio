@@ -112,7 +112,15 @@ This repository contains a full-stack portfolio application for a software devel
 
 Preferred communication style: Simple, everyday language.
 
+## Recent Changes
+
+- July 01, 2025: Simplified backend by removing database storage and React Query dependencies
+- Contact form now uses mailto links to send emails directly to dineshy2307@gmail.com
+- Resume download links directly to the PDF file in public assets
+- Removed unnecessary storage layer and API complexity
+
 ## Changelog
 
 Changelog:
 - July 01, 2025. Initial setup
+- July 01, 2025. Removed backend database, simplified to direct email approach
