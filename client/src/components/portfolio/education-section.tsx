@@ -62,7 +62,7 @@ export default function EducationSection() {
             </h3>
             <div className="space-y-4">
               {portfolioData.certifications.map((cert, index) => {
-                const certIcons = ['layers', 'python', 'robot', 'google', 'file-text'];
+                const certIcons = ['robot', 'layer-group', 'chart-line' ,'file-code'];
                 const certColors = ['var(--accent-blue)', 'var(--accent-purple)', 'var(--accent-cyan)', 'var(--accent-blue)', 'var(--accent-purple)'];
                 
                 return (

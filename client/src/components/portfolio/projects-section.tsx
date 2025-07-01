@@ -1,14 +1,14 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { ExternalLink, Github, PaintBucket, Calendar, Bot } from "lucide-react";
+import { ExternalLink, Github, PaintBucket, Calendar, Bot, PresentationIcon } from "lucide-react";
 import { portfolioData } from "@/lib/portfolio-data";
 
 export default function ProjectsSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
-  const projectIcons = [PaintBucket, Calendar, Bot];
+  const projectIcons = [PaintBucket, Calendar, Bot, PresentationIcon];
   const projectColors = ["var(--accent-blue)", "var(--accent-purple)", "var(--accent-cyan)"];
 
   return (
@@ -27,61 +27,16 @@ export default function ProjectsSection() {
         <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {portfolioData.projects.map((project, index) => {
             const IconComponent = projectIcons[index];
-            const color = projectColors[index];
+            const color = projectColors[0];
             
             return (
               <motion.div
                 key={index}
-                className={`glass-effect p-8 rounded-xl project-card ${index === 2 ? 'lg:col-span-2' : ''}`}
+                className={`glass-effect p-8 rounded-xl project-card ${index === 2 ? '' : ''}`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
               >
-                {index === 2 ? (
-                  // Special layout for RAG GenAI Agent
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div>
-                      <IconComponent 
-                        className="mb-4 h-12 w-12" 
-                        style={{ color }}
-                      />
-                      <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
-                      <p className="text-gray-300 mb-4">{project.description}</p>
-                      <div className="flex flex-wrap gap-2 mb-6">
-                        {project.technologies.map((tech) => (
-                          <span
-                            key={tech}
-                            className="px-3 py-1 rounded-full text-sm"
-                            style={{ 
-                              backgroundColor: `${color}20`, 
-                              color: color 
-                            }}
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="bg-[var(--slate-medium)]/30 rounded-lg p-6">
-                      <div className="text-center mb-4">
-                        <div className="text-3xl font-bold" style={{ color }}>
-                          {project.impact?.savings}
-                        </div>
-                        <div className="text-sm text-gray-400">Average Savings</div>
-                      </div>
-                      <div className="text-center mb-4">
-                        <div className="text-2xl font-bold text-[var(--accent-blue)]">
-                          {project.impact?.properties}
-                        </div>
-                        <div className="text-sm text-gray-400">Properties Served</div>
-                      </div>
-                      <div className="text-sm text-gray-300">
-                        <strong>Impact:</strong> {project.impact?.description}
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  // Standard layout for other projects
                   <div className="mb-6">
                     <IconComponent 
                       className="mb-4 h-12 w-12" 
@@ -107,7 +62,11 @@ export default function ProjectsSection() {
                       <button className="transition-colors" style={{ color }}>
                         <Github className="h-5 w-5" />
                       </button>
-                      <button className="transition-colors" style={{ color }}>
+                      <button
+                        className="transition-colors"
+                        style={{ color }}
+                        onClick={() => window.open("https://www.jetir.org/papers/JETIRAZ06043.pdf", '_blank', 'noopener,noreferrer')}
+                      >
                         <ExternalLink className="h-5 w-5" />
                       </button>
                     </div>
@@ -120,7 +79,6 @@ export default function ProjectsSection() {
                       </ul>
                     </div>
                   </div>
-                )}
               </motion.div>
             );
           })}

@@ -1,17 +1,11 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 import { FaLinkedin } from "react-icons/fa";
 import { portfolioData } from "@/lib/portfolio-data";
-import { contactFormSchema, type ContactFormData } from "@shared/schema";
+import emailjs from '@emailjs/browser';
 
 export default function ContactSection() {
   const ref = useRef(null);
@@ -19,46 +13,33 @@ export default function ContactSection() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const form = useForm<ContactFormData>({
-    resolver: zodResolver(contactFormSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
-    },
-  });
+  const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
 
-  const onSubmit = async (data: ContactFormData) => {
-    setIsSubmitting(true);
-    
-    try {
-      // Create mailto link to send email directly
-      const subject = encodeURIComponent(`Portfolio Contact: ${data.subject}`);
-      const body = encodeURIComponent(
-        `Name: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`
-      );
-      const mailtoUrl = `mailto:dineshy2307@gmail.com?subject=${subject}&body=${body}`;
-      
-      // Open default email client
-      window.open(mailtoUrl, '_blank');
-      
-      toast({
-        title: "Opening email client",
-        description: "Your default email client will open to send the message.",
-      });
-      
-      form.reset();
-    } catch (error) {
-      console.error("Error:", error);
-      toast({
-        title: "Error",
-        description: "Please email me directly at dineshy2307@gmail.com",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    emailjs.sendForm(
+      'service_6snkxcx',
+      'template_4jmt75b',
+      form,
+      'vNtfEAH5ZJ-s8oy4I'
+    )
+    .then(
+      () => {
+        toast({
+          title: "Message sent!",
+          description: "Thank you for reaching out. I'll get back to you soon.",
+          variant: "success"
+        });
+        form.reset();
+      },
+      (error) => {
+        toast({
+          title: "Failed to send message",
+          description: error.text || "Please try again later.",
+          variant: "destructive"
+        });
+      }
+    );
   };
 
   return (
@@ -115,7 +96,7 @@ export default function ContactSection() {
                     rel="noopener noreferrer"
                     className="text-gray-300 hover:text-[var(--accent-cyan)] transition-colors"
                   >
-                    linkedin.com/in/dinesh-yaramada
+                    linkedin.com/in/dineshyaramada
                   </a>
                 </div>
                 <div className="flex items-center">
@@ -148,89 +129,44 @@ export default function ContactSection() {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <h3 className="text-2xl font-bold mb-6 text-[var(--accent-blue)]">Send a Message</h3>
-            
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <FormField
-                  control={form.control}
+            <form onSubmit={sendEmail} className="glass-effect p-8 rounded-xl space-y-6 max-w-xl mx-auto">
+              <div>
+                <label className="block text-gray-300 mb-2" htmlFor="name">Name</label>
+                <input
+                  className="w-full px-4 py-2 rounded-md bg-[var(--slate-medium)] text-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--accent-blue)]"
+                  type="text"
+                  id="name"
                   name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-gray-300">Name</FormLabel>
-                      <FormControl>
-                        <Input 
-                          {...field} 
-                          className="bg-[var(--slate-medium)] border-[var(--slate-medium)] text-white focus:ring-[var(--accent-blue)] focus:border-[var(--accent-blue)]"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  required
                 />
-
-                <FormField
-                  control={form.control}
+              </div>
+              <div>
+                <label className="block text-gray-300 mb-2" htmlFor="email">Email</label>
+                <input
+                  className="w-full px-4 py-2 rounded-md bg-[var(--slate-medium)] text-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--accent-blue)]"
+                  type="email"
+                  id="email"
                   name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-gray-300">Email</FormLabel>
-                      <FormControl>
-                        <Input 
-                          {...field} 
-                          type="email"
-                          className="bg-[var(--slate-medium)] border-[var(--slate-medium)] text-white focus:ring-[var(--accent-blue)] focus:border-[var(--accent-blue)]"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  required
                 />
-
-                <FormField
-                  control={form.control}
-                  name="subject"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-gray-300">Subject</FormLabel>
-                      <FormControl>
-                        <Input 
-                          {...field} 
-                          className="bg-[var(--slate-medium)] border-[var(--slate-medium)] text-white focus:ring-[var(--accent-blue)] focus:border-[var(--accent-blue)]"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
+              </div>
+              <div>
+                <label className="block text-gray-300 mb-2" htmlFor="message">Message</label>
+                <textarea
+                  className="w-full px-4 py-2 rounded-md bg-[var(--slate-medium)] text-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--accent-blue)]"
+                  id="message"
                   name="message"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-gray-300">Message</FormLabel>
-                      <FormControl>
-                        <Textarea 
-                          {...field} 
-                          rows={4}
-                          className="bg-[var(--slate-medium)] border-[var(--slate-medium)] text-white focus:ring-[var(--accent-blue)] focus:border-[var(--accent-blue)] resize-none"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  rows={5}
+                  required
                 />
-
-                <Button 
-                  type="submit" 
-                  disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-purple)] text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
-                >
-                  <Send className="mr-2 h-4 w-4" />
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                </Button>
-              </form>
-            </Form>
+              </div>
+              <button
+                type="submit"
+                className="w-full bg-[var(--accent-blue)] text-white font-semibold py-2 px-4 rounded-md hover:bg-[var(--accent-purple)] transition-colors"
+              >
+                Send Message
+              </button>
+            </form>
           </motion.div>
         </div>
       </div>

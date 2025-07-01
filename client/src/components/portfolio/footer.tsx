@@ -28,7 +28,7 @@ export default function Footer() {
                 <FaLinkedin className="h-6 w-6" />
               </a>
               <a 
-                href="https://github.com/dineshyaramada" 
+                href="https://github.com/dineshy2307" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-[var(--accent-blue)] transition-colors"

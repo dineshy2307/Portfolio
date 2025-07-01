@@ -1,11 +1,11 @@
 export const portfolioData = {
   personal: {
-    name: "Dinesh Yaramada",
-    title: "Full Stack Developer & Software Engineer",
+    name: "Dinesh Reddy Yaramada",
+    title: "Full Stack Developer / Software Engineer",
     email: "dineshy2307@gmail.com",
     phone: "(806) 401-3047",
-    linkedin: "https://linkedin.com/in/dinesh-yaramada",
-    location: "Lubbock, Texas, United States",
+    linkedin: "https://linkedin.com/in/dineshyaramada",
+    location: "Texas, United States",
     summary: "Experienced Full Stack Developer with a Master's degree in Computer Science from Texas Tech University and a Bachelor's in Computer Science from CVR College of Engineering. My expertise spans software development and system architecture. Motivated by solving complex problems, I aim to leverage technology to create meaningful impact while fostering collaboration and creativity.",
   },
   
@@ -40,12 +40,7 @@ export const portfolioData = {
       role: "Full Stack Web Developer",
       period: "June 2023 – Present",
       location: "Lubbock, Texas, United States",
-      achievements: [
-        "Created a calendar service using Vue.js integrating with Broadcasting & Scheduling services with Java(Spring/Hibernate) for messaging, leasing, property managers residents and accelerating service by 45%",
-        "Executed a centralized Web Application administrator console to enhance management efficiency for residents and prospects, centralizing leasing offices and workload of leasing agents by reducing processing turn-around time by 65%",
-        "Implemented RAG (Retrieval-Augmented Generation) GenAI agent for domain-specific responses, integrating databases and custom knowledge libraries achieving $1.2M average savings across 115 multi-family properties",
-        "Enhanced an Android app featuring augmented reality and real-time mapping with virtual assistant and super-imposed navigation for prospects to help in self-guided touring of all amenities on property"
-      ]
+      achievements: [],
     },
     {
       company: "HummingWave Technologies",
@@ -53,11 +48,7 @@ export const portfolioData = {
       period: "July 2019 – July 2021",
       location: "Bengaluru, Karnataka, India",
       achievements: [
-        "Designed scalable solution for managing credit policies, integrating third-party services, and sourcing partner APIs using Java(Spring/SpringBoot) to enhance financial technology offerings for over 1.3 million users nationwide",
-        "Integrated analytics and user segmentation in a B2B web application for analytics, rich push notifications, and surveys, resulting in a 47% expansion in revenue and a 143% increase in recurring revenue",
-        "Adopted MVVM architecture and managed the transition of an existing Android application from Java to Kotlin with over a 100K active users for a cleaner separation of concerns between the different layers of the application",
-        "Developed an Android application that enables personal and consumer loans for individuals to small-scale businesses using cryptocurrencies and digital assets as collateral, achieving 800K downloads and a 4.5/5 happiness rating"
-      ]
+       ]
     },
     {
       company: "OpenText",
@@ -65,10 +56,7 @@ export const portfolioData = {
       period: "September 2018 – March 2019",
       location: "Bengaluru, Karnataka, India",
       achievements: [
-        "Developed and implemented an end-to-end test automation framework that reduced regression testing time by 65%, leveraging Selenium WebDriver",
-        "Spearheaded quality assurance initiatives for a Business Process Management (BPM) suite ensuring workflow automation and collaborated with stakeholders to identify process inefficiencies to optimize automation",
-        "Implemented a comprehensive SOAP-to-REST API transformation strategy restructuring service endpoints to enhance scalability, performance and led the redesign of legacy SOAP-based services into modern RESTful architectures"
-      ]
+        ]
     }
   ],
 
@@ -97,13 +85,25 @@ export const portfolioData = {
     },
     {
       title: "RAG GenAI Agent",
-      description: "Implemented Retrieval-Augmented Generation AI agent for domain-specific responses, integrating databases and custom knowledge libraries to achieve significant cost savings.",
+      description: "Implemented Retrieval-Augmented Generation AI agent for Cricket's History, current matches going around the globe and where to catch them live, recent updates about your favorite teams and resources to help play better.",
       technologies: ["Python", "LangChain", "VectorDB", "OpenAI API"],
-      impact: {
-        savings: "$1.2M",
-        properties: 115,
-        description: "Revolutionized property management operations through AI-powered responses and automation"
-      }
+      features: [
+        "Retrieval-Augmented Generation AI agent",
+        "Cricket history and live match updates",
+        "Recent updates about favorite teams",
+        "Resources for improving gameplay"
+      ]
+    },
+    {
+      title: "Research Publication",
+      description: "Published research on 'Review and Advancement of Automation Testing with Integrated Frameworks', in the International Journal of Emerging Technologies and Innovative Research.",
+      technologies: ["Automation testing", "Integrated Frameworks", "API Testing", "Python"],
+      features: [
+        "Focus on automation testing advancements",
+        "Flawless Automation Testing algorithms.",
+        "Impact Factor 7.95 calculated by Google Scholar",
+        "Published in International JETIR Volume 6 | Issue 4",
+      ]
     }
   ],
 
@@ -125,10 +125,9 @@ export const portfolioData = {
   ],
 
   certifications: [
-    "Full Stack Development",
-    "Python Programming", 
     "Building LLM Applications With Prompt Engineering",
+    "Full Stack Development",
     "Google Analytics Individual Qualification",
-    "Research Publication"
+    "Python Programming", 
   ]
 };

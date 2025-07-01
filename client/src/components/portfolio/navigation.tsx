@@ -54,7 +54,7 @@ export default function Navigation() {
       <div className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
           <div className="text-xl font-bold text-[var(--accent-blue)]">
-            Dinesh Yaramada
+            Dinesh Reddy Yaramada
           </div>
           
           {/* Desktop Navigation */}

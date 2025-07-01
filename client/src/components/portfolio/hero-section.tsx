@@ -37,7 +37,7 @@ export default function HeroSection() {
               <div className="gradient-border-inner p-2">
                 <img 
                   src={ghibliImage} 
-                  alt="Dinesh Yaramada - Profile" 
+                  alt="Dinesh Reddy Yaramada - Profile" 
                   className="w-full h-full object-cover rounded-full"
                 />
               </div>
@@ -59,7 +59,7 @@ export default function HeroSection() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
-            <span className="typing-animation">Full Stack Developer & Software Engineer</span>
+            <span className="typing-animation">Full Stack Developer / Software Engineer</span>
           </motion.div>
 
           <motion.p 
