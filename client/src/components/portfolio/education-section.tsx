@@ -3,6 +3,8 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { GraduationCap, Award } from "lucide-react";
 import { portfolioData } from "@/lib/portfolio-data";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRobot, faLayerGroup, faChartLine, faFileCode } from "@fortawesome/free-solid-svg-icons";
 
 export default function EducationSection() {
   const ref = useRef(null);
@@ -62,7 +64,7 @@ export default function EducationSection() {
             </h3>
             <div className="space-y-4">
               {portfolioData.certifications.map((cert, index) => {
-                const certIcons = ['robot', 'layer-group', 'chart-line' ,'file-code'];
+                const certIcons = [faRobot, faLayerGroup, faChartLine, faFileCode];
                 const certColors = ['var(--accent-blue)', 'var(--accent-purple)', 'var(--accent-cyan)', 'var(--accent-blue)', 'var(--accent-purple)'];
                 
                 return (
@@ -73,8 +75,9 @@ export default function EducationSection() {
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                     transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
                   >
-                    <i 
-                      className={`fas fa-${certIcons[index % certIcons.length]} mr-3`}
+                    <FontAwesomeIcon 
+                      icon={certIcons[index % certIcons.length]}
+                      className="mr-3"
                       style={{ color: certColors[index % certColors.length] }}
                     />
                     <span>{cert}</span>
